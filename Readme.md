@@ -60,13 +60,13 @@ App servers
 The `meteorhacks:cluster` package adds cluster abilities to the
 application.
 
-    meteor add meteorhacks:cluster
+TODO: More info
 
 Balancers
 ---------
 
-tbd.
-Plan: Instances that are only acting as balancers, to distribute traffic between all app servers.
+TODO: Instances that are only acting as balancers, to distribute
+traffic between all app servers.
 
 In order to make an instance a balancer set the `CLUSTER_BALANCER_URL`
 environment variable.
@@ -76,7 +76,8 @@ environment variable.
 Running a simple cluster
 ------------------------
 
-Adjust all environment variables in the `mup.json` file according to your environment. Then issue the commands
+Adjust all environment variables in the `mup.json` file according to
+your environment. Then issue the commands
 
     mup setup
 
@@ -88,4 +89,5 @@ Questions
 ---------
 
 -   Are all balancers also acting as app servers?
--  Errors from the `backend` service: `stream error Network error: ws://192.168.2.70:3000/websocket: connect ECONNREFUSED`
+-   Errors from the `backend` service:
+    `stream error Network error: ws://192.168.2.70:3000/websocket: connect ECONNREFUSED`
