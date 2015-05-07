@@ -1,52 +1,42 @@
 ConfigCollection = new Mongo.Collection('config');
 serviceName = '';
-FooService = null;
-
+BackendService = null;
 
 if (Meteor.isClient) {
-  Meteor.subscribe("config");
-  Template.clusterinfo.helpers({
+  Meteor.subscribe('config');
+  Template.clusterInfo.helpers({
     config: function () {
-      console.log(ConfigCollection.findOne());
       return ConfigCollection.findOne();
     }
   });
 
-  Template.clusterFunctions.events({
-    'click .say-hi': function(evt, tpl) {
-      Meteor.call('sayHi', function(err, res){
-         console.log('result: ' + res);
-      });
-    }
-  })
-
-}
-
-if (Meteor.isServer) {
-
-  Meteor.methods({
-    'sayHi': function(){
-      console.log(process.env['CLUSTER_SERVICE'] + ': sayHi');
-
-      if(serviceName == 'foo'){
-        // started as foo service
-        return 'Hi';
-      }
-
-      // started as web service
-      return FooService.call('sayHi');
+  Template.callMethod.helpers({
+    result: function () {
+      return Session.get('result');
     }
   });
 
-  Meteor.startup(function () {
-
-    serviceName = process.env['CLUSTER_SERVICE'];
-
-    if(serviceName != 'foo'){
-      FooService = Cluster.discoverConnection('foo');
+  Template.callMethod.events({
+    'click .hello': function (evt, tpl) {
+      Meteor.call('helloServer', function (err, res) {
+        if (err) {
+          console.log('error: ' + err);
+          Session.set('result', {
+            error: err
+          });
+        } else {
+          Session.set('result', res);
+          return res;
+        }
+      });
     }
+  });
+};
 
-    // code to run on server at startup
+if (Meteor.isServer) {
+  Meteor.startup(function () {
+    serviceName = process.env['CLUSTER_SERVICE'];
+    hostname = Npm.require('os').hostname();
     var environmentConfig = {
       CLUSTER_BALANCER_URL: process.env['CLUSTER_BALANCER_URL'],
       CLUSTER_DISCOVERY_URL: process.env['CLUSTER_DISCOVERY_URL'],
@@ -60,19 +50,34 @@ if (Meteor.isServer) {
       PORT: process.env['PORT'],
       ROOT_URL: process.env['ROOT_URL']
     };
-    if (ConfigCollection.findOne()) {
-      var id = Npm.require('os').hostname();
+
+    ConfigCollection.upsert(hostname, environmentConfig);
+
+    if (serviceName != 'backend') {
+      BackendService = Cluster.discoverConnection('backend');
     }
 
-    //console.log('current config (' + id + '):', environmentConfig);
-    ConfigCollection.upsert(id, environmentConfig);
-
+    // PUBLICATIONS
     Meteor.publish('config', function () {
       return ConfigCollection.find({
-        _id: id
+        _id: hostname
       });
     });
 
-    //Cluster.connect(process.env['CLUSTER_DISCOVERY_URL']);
+  });
+
+  // METHODS
+  Meteor.methods({
+    'helloServer': function () {
+      console.log('Method helloServer on ' + hostname + ' (' + process.env['CLUSTER_SERVICE'] + ')');
+
+      if (serviceName === 'backend') {
+        // started as backend service
+        return 'This comes from the backend service at ' + hostname;
+      }
+
+      // started as web service
+      return BackendService.call('helloServer');
+    }
   });
 }

@@ -1,60 +1,87 @@
 <head>
-  <title>Meteor Cluster</title>
+  <title>Meteor Cluster Test</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor Cluster!</h1>
 
-  {{> clusterFunctions}}
-  {{> clusterinfo}}
+  <div class="container">
+
+    <div class="info">
+      {{> clusterInfo}}
+    </div>
+    <div class="action">
+      {{> callMethod}}
+    </div>
+
+  </div>
+  <!-- /.container -->
+
 </body>
 
-<template name="clusterFunctions">
-  <button class="say-hi">Say Hi</button>
+<template name="clusterInfo">
+  {{#with config}}
+  <h1>{{HOSTNAME}}</h1>
+  <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th>Environment Variable Name</th>
+        <th>Variable Content</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CLUSTER_DISCOVERY_URL</td>
+        <td>{{config.CLUSTER_DISCOVERY_URL}}</td>
+      </tr>
+      <tr>
+        <td>CLUSTER_ENDPOINT_URL</td>
+        <td>{{config.CLUSTER_ENDPOINT_URL}}</td>
+      </tr>
+      <tr>
+        <td>CLUSTER_SERVICE</td>
+        <td>{{config.CLUSTER_SERVICE}}</td>
+      </tr>
+      <tr>
+        <td>CLUSTER_BALANCER_URL</td>
+        <td>{{config.CLUSTER_BALANCER_URL}}</td>
+      </tr>
+      <tr>
+        <td>CLUSTER_UI_SERVICE</td>
+        <td>{{config.CLUSTER_UI_SERVICE}}</td>
+      </tr>
+      <tr>
+        <td>CLUSTER_PUBLIC_SERVICES</td>
+        <td>{{config.CLUSTER_PUBLIC_SERVICES}}</td>
+      </tr>
+      <tr>
+        <td>CLUSTER_SELF_WEIGHT</td>
+        <td>{{config.CLUSTER_SELF_WEIGHT}}</td>
+      </tr>
+      <tr>
+        <td>MONGO_URL</td>
+        <td>{{config.MONGO_URL}}</td>
+      </tr>
+      <tr>
+        <td>ROOT_URL</td>
+        <td>{{config.ROOT_URL}}</td>
+      </tr>
+      <tr>
+        <td>PORT</td>
+        <td>{{config.PORT}}</td>
+      </tr>
+    </tbody>
+  </table>
+  {{/with}}
 </template>
 
-<template name="clusterinfo">
-  {{#with config}}
-  <h2>{{HOSTNAME}}</h2>
-  <tr>
-    <td>CLUSTER_DISCOVERY_URL</td>
-    <td>{{config.CLUSTER_DISCOVERY_URL}}</td>
-  </tr>
-  <tr>
-    <td>CLUSTER_ENDPOINT_URL</td>
-    <td>{{config.CLUSTER_ENDPOINT_URL}}</td>
-  </tr>
-  <tr>
-    <td>CLUSTER_SERVICE</td>
-    <td>{{config.CLUSTER_SERVICE}}</td>
-  </tr>
-  <tr>
-    <td>CLUSTER_BALANCER_URL</td>
-    <td>{{config.CLUSTER_BALANCER_URL}}</td>
-  </tr>
-  <tr>
-    <td>CLUSTER_UI_SERVICE</td>
-    <td>{{config.CLUSTER_UI_SERVICE}}</td>
-  </tr>
-  <tr>
-    <td>CLUSTER_PUBLIC_SERVICES</td>
-    <td>{{config.CLUSTER_PUBLIC_SERVICES}}</td>
-  </tr>
-  <tr>
-    <td>CLUSTER_SELF_WEIGHT</td>
-    <td>{{config.CLUSTER_SELF_WEIGHT}}</td>
-  </tr>
-  <tr>
-    <td>MONGO_URL</td>
-    <td>{{config.MONGO_URL}}</td>
-  </tr>
-  <tr>
-    <td>ROOT_URL</td>
-    <td>{{config.ROOT_URL}}</td>
-  </tr>
-  <tr>
-    <td>PORT</td>
-    <td>{{config.PORT}}</td>
-  </tr>
-  {{/with}}
+<template name="callMethod">
+  <button class="hello">Trigger method on backend service</button>
+  {{#with result}} {{#if error}}
+  <p>There was an error: {{error}}!
+  </p>
+  {{else}}
+  <p>
+    {{result}}
+  </p>
+  {{/if}} {{/with}}
 </template>

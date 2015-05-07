@@ -4,6 +4,18 @@ Meteor Cluster Test
 Sample application(s) to test [meteor
 cluster](https://github.com/meteorhacks/cluster)
 
+Prerequisites and architecture
+------------------------------
+
+Using this cluster test assumes a setup of
+
+-   A MongoDB server
+-   2 Ubuntu hosts
+
+![Cluster setup architecture](doc/architecture.png)
+
+Both Meteor servers can be accessed.
+
 MongoDB setup
 -------------
 
@@ -12,6 +24,7 @@ We'll need three databases, one for communication between the nodes
 
 Create the MongoDB users accordingly.
 
+    use cluster;
     db.createUser({
       "user": "clusteruser",
       "pwd": "password",
@@ -21,6 +34,7 @@ Create the MongoDB users accordingly.
       }]
     });
 
+    use data;
     db.createUser({
       "user": "datauser",
       "pwd": "password",
@@ -30,7 +44,7 @@ Create the MongoDB users accordingly.
       }]
     });
 
-
+    use admin;
     db.createUser({
       user: 'oplog',
       pwd: 'password',
@@ -43,34 +57,35 @@ Create the MongoDB users accordingly.
 App servers
 -----------
 
-Add the `meteorhacks:cluster` package to the application.
+The `meteorhacks:cluster` package adds cluster abilities to the
+application.
 
     meteor add meteorhacks:cluster
 
-In the scenario we'll use two app servers.
-
 Balancers
 ---------
+
+tbd.
+Plan: Instances that are only acting as balancers, to distribute traffic between all app servers.
 
 In order to make an instance a balancer set the `CLUSTER_BALANCER_URL`
 environment variable.
 
     export CLUSTER_BALANCER_URL=https://subdomain.domainname.com
 
-Are all balancers also acting as app servers?
-
 Running a simple cluster
 ------------------------
-Start mongodb:
 
-    mongod
+Adjust all environment variables in the `mup.json` file according to your environment. Then issue the commands
 
-Run first instance as "web" service
+    mup setup
 
-    CLUSTER_DISCOVERY_URL=mongodb://localhost:27017/test CLUSTER_SERVICE=web meteor
+and
 
-Run second instance as "foo" service
+    mup deploy
 
-    MONGO_URL=mongodb://localhost:3001 CLUSTER_DISCOVERY_URL=mongodb://localhost:27017/test CLUSTER_SERVICE=foo meteor --port 4000
+Questions
+---------
 
-Connect to the "web" service via the browser to [http://localhost:3000/](http://localhost:3000/)
+-   Are all balancers also acting as app servers?
+-  Errors from the `backend` service: `stream error Network error: ws://192.168.2.70:3000/websocket: connect ECONNREFUSED`
