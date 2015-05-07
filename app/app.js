@@ -41,7 +41,7 @@ if (Meteor.isServer) {
       });
     });
 
-    Cluster.connect(process.env['CLUSTER_DISCOVERY_URL']);
-    Cluster.register("web");
+    //Cluster.connect(process.env['CLUSTER_DISCOVERY_URL']);
+    //Cluster.register("web");
   });
 }
