@@ -5,8 +5,13 @@
 <body>
   <h1>Welcome to Meteor Cluster!</h1>
 
+  {{> clusterFunctions}}
   {{> clusterinfo}}
 </body>
+
+<template name="clusterFunctions">
+  <button class="say-hi">Say Hi</button>
+</template>
 
 <template name="clusterinfo">
   {{#with config}}
