@@ -3,17 +3,15 @@ serviceName = '';
 BackendService = null;
 
 if (Meteor.isClient) {
+  Session.setDefault('result', null);
   Meteor.subscribe('config');
-  Template.clusterInfo.helpers({
-    config: function () {
-      return ConfigCollection.findOne();
-    }
+
+  Template.registerHelper('config', function () {
+    return ConfigCollection.findOne();
   });
 
-  Template.callMethod.helpers({
-    result: function () {
-      return Session.get('result');
-    }
+  Template.registerHelper('result', function () {
+    return Session.get('result');
   });
 
   Template.callMethod.events({
@@ -25,12 +23,14 @@ if (Meteor.isClient) {
             error: err
           });
         } else {
+          console.log('result: ' + res);
           Session.set('result', res);
           return res;
         }
       });
     }
   });
+
 };
 
 if (Meteor.isServer) {
@@ -73,7 +73,11 @@ if (Meteor.isServer) {
 
       if (serviceName === 'backend') {
         // started as backend service
-        return 'This comes from the backend service at ' + hostname;
+        var config = ConfigCollection.findOne({
+          _id: hostname
+        });
+        console.log(hostname + ' returning ', config);
+        return config;
       }
 
       // started as web service

@@ -65,8 +65,8 @@ TODO: More info
 Balancers
 ---------
 
-TODO: Instances that are only acting as balancers, to distribute
-traffic between all app servers.
+TODO: Instances that are only acting as balancers, to distribute traffic
+between all app servers.
 
 In order to make an instance a balancer set the `CLUSTER_BALANCER_URL`
 environment variable.
@@ -91,3 +91,5 @@ Questions
 -   Are all balancers also acting as app servers?
 -   Errors from the `backend` service:
     `stream error Network error: ws://192.168.2.70:3000/websocket: connect ECONNREFUSED`
+-   Can I configure `mup.json` so that each host may get another
+    application (`app`) source? (A first test showed *no*)

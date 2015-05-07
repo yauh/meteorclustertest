@@ -7,7 +7,8 @@
   <div class="container">
 
     <div class="info">
-      {{> clusterInfo}}
+      <h1>Currently connected to</h1>
+      {{> clusterInfo config}}
     </div>
     <div class="action">
       {{> callMethod}}
@@ -19,8 +20,7 @@
 </body>
 
 <template name="clusterInfo">
-  {{#with config}}
-  <h1>{{HOSTNAME}}</h1>
+  <h2>{{HOSTNAME}}</h2>
   <table class="table table-striped table-hover ">
     <thead>
       <tr>
@@ -31,47 +31,46 @@
     <tbody>
       <tr>
         <td>CLUSTER_DISCOVERY_URL</td>
-        <td>{{config.CLUSTER_DISCOVERY_URL}}</td>
+        <td>{{CLUSTER_DISCOVERY_URL}}</td>
       </tr>
       <tr>
         <td>CLUSTER_ENDPOINT_URL</td>
-        <td>{{config.CLUSTER_ENDPOINT_URL}}</td>
+        <td>{{CLUSTER_ENDPOINT_URL}}</td>
       </tr>
       <tr>
         <td>CLUSTER_SERVICE</td>
-        <td>{{config.CLUSTER_SERVICE}}</td>
+        <td>{{CLUSTER_SERVICE}}</td>
       </tr>
       <tr>
         <td>CLUSTER_BALANCER_URL</td>
-        <td>{{config.CLUSTER_BALANCER_URL}}</td>
+        <td>{{CLUSTER_BALANCER_URL}}</td>
       </tr>
       <tr>
         <td>CLUSTER_UI_SERVICE</td>
-        <td>{{config.CLUSTER_UI_SERVICE}}</td>
+        <td>{{CLUSTER_UI_SERVICE}}</td>
       </tr>
       <tr>
         <td>CLUSTER_PUBLIC_SERVICES</td>
-        <td>{{config.CLUSTER_PUBLIC_SERVICES}}</td>
+        <td>{{CLUSTER_PUBLIC_SERVICES}}</td>
       </tr>
       <tr>
         <td>CLUSTER_SELF_WEIGHT</td>
-        <td>{{config.CLUSTER_SELF_WEIGHT}}</td>
+        <td>{{CLUSTER_SELF_WEIGHT}}</td>
       </tr>
       <tr>
         <td>MONGO_URL</td>
-        <td>{{config.MONGO_URL}}</td>
+        <td>{{MONGO_URL}}</td>
       </tr>
       <tr>
         <td>ROOT_URL</td>
-        <td>{{config.ROOT_URL}}</td>
+        <td>{{ROOT_URL}}</td>
       </tr>
       <tr>
         <td>PORT</td>
-        <td>{{config.PORT}}</td>
+        <td>{{PORT}}</td>
       </tr>
     </tbody>
   </table>
-  {{/with}}
 </template>
 
 <template name="callMethod">
@@ -80,8 +79,5 @@
   <p>There was an error: {{error}}!
   </p>
   {{else}}
-  <p>
-    {{result}}
-  </p>
-  {{/if}} {{/with}}
+  <h1>Reply from</h1>{{> clusterInfo result}} {{/if}} {{/with}}
 </template>
