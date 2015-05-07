@@ -2,7 +2,7 @@
   // Server authentication info
   "servers": [{
     "host": "192.168.2.69", // meteor
-    "username": "stephen",
+    "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
       //"CLUSTER_BALANCER_URL": "https://lb1.meteor",
@@ -10,7 +10,7 @@
     }
   }, {
     "host": "192.168.2.70", // comet
-    "username": "stephen",
+    "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
       //"CLUSTER_BALANCER_URL": "https://lb2.meteor",
