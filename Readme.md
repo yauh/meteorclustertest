@@ -88,8 +88,10 @@ and
 Questions
 ---------
 
--   Are all balancers also acting as app servers?
+-   Are all balancers also acting as app servers? Can this be avoided?
 -   Errors from the `backend` service:
-    `stream error Network error: ws://192.168.2.70:3000/websocket: connect ECONNREFUSED`
+    `stream error Network error: ws://192.168.2.70:3000/websocket: connect ECONNREFUSED` -
+    Is this because the .70 server is not a `web` service?
 -   Can I configure `mup.json` so that each host may get another
     application (`app`) source? (A first test showed *no*)
+- How can we get SSL added in the most efficient way?
