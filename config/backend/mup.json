@@ -5,22 +5,15 @@
     "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
-      //"CLUSTER_ENDPOINT_URL": "http://192.168.2.69",
-      "CLUSTER_SERVICE": "web"
-        //"CLUSTER_BALANCER_URL": "https://lb1.meteor",
-        //"CLUSTER_SELF_WEIGHT": "",
+      "CLUSTER_SERVICE": "backend"
     }
   }, {
     "host": "192.168.2.70", // comet
     "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
-      //"CLUSTER_ENDPOINT_URL": "http://192.168.2.70",
       "CLUSTER_SERVICE": "backend"
-        //"CLUSTER_BALANCER_URL": "https://lb2.meteor",
-        //"CLUSTER_SELF_WEIGHT": "",
-    },
-    "appName": "mcbackend"
+    }
   }],
 
   // Install MongoDB in the server, does not destroy local MongoDB on future setup
@@ -40,7 +33,7 @@
   "enableUploadProgressBar": false,
 
   // Application name (No spaces)
-  "appName": "mcweb",
+  "appName": "clusterbackend",
 
   // Location of app (local directory)
   "app": "/Users/stephan/code/github/meteorclustertest/app",
@@ -54,7 +47,7 @@
     "CLUSTER_UI_SERVICE": "web", // optional
     "MONGO_URL": "mongodb://datauser:password@192.168.2.34:27017/data",
     "MONGO_OPLOG_URL": "mongodb://oplog:password@192.168.2.34:27017/local?authSource=admin",
-    "PORT": 3000,
+    "PORT": 3020,
     "ROOT_URL": "http://www.meteor.lab"
   },
 

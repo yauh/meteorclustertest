@@ -37,6 +37,7 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     serviceName = process.env['CLUSTER_SERVICE'];
     hostname = Npm.require('os').hostname();
+    port = process.env['PORT'];
     var environmentConfig = {
       CLUSTER_BALANCER_URL: process.env['CLUSTER_BALANCER_URL'],
       CLUSTER_DISCOVERY_URL: process.env['CLUSTER_DISCOVERY_URL'],
@@ -50,8 +51,8 @@ if (Meteor.isServer) {
       PORT: process.env['PORT'],
       ROOT_URL: process.env['ROOT_URL']
     };
-
-    ConfigCollection.upsert(hostname, environmentConfig);
+    var id = hostname + ':' + port;
+    ConfigCollection.upsert(id, environmentConfig);
 
     if (serviceName != 'backend') {
       BackendService = Cluster.discoverConnection('backend');
@@ -60,7 +61,7 @@ if (Meteor.isServer) {
     // PUBLICATIONS
     Meteor.publish('config', function () {
       return ConfigCollection.find({
-        _id: hostname
+        _id: id
       });
     });
 
@@ -69,14 +70,15 @@ if (Meteor.isServer) {
   // METHODS
   Meteor.methods({
     'helloServer': function () {
-      console.log('Method helloServer on ' + hostname + ' (' + process.env['CLUSTER_SERVICE'] + ')');
+      var id = hostname + ':' + port;
+      console.log('Method helloServer on ' + id + ' (' + process.env['CLUSTER_SERVICE'] + ')');
 
       if (serviceName === 'backend') {
         // started as backend service
         var config = ConfigCollection.findOne({
-          _id: hostname
+          _id: id
         });
-        console.log(hostname + ' returning ', config);
+        console.log(id + ' returning ', config);
         return config;
       }
 
