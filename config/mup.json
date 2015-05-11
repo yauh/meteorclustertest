@@ -5,20 +5,14 @@
     "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
-      //"CLUSTER_ENDPOINT_URL": "http://192.168.2.69",
       "CLUSTER_SERVICE": "web"
-        //"CLUSTER_BALANCER_URL": "https://lb1.meteor",
-        //"CLUSTER_SELF_WEIGHT": "",
     }
   }, {
     "host": "192.168.2.70", // comet
     "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
-      //"CLUSTER_ENDPOINT_URL": "http://192.168.2.70",
       "CLUSTER_SERVICE": "backend"
-        //"CLUSTER_BALANCER_URL": "https://lb2.meteor",
-        //"CLUSTER_SELF_WEIGHT": "",
     },
     "appName": "mcbackend"
   }],

@@ -1,14 +1,28 @@
 {
   // Server authentication info
   "servers": [{
-    "host": "192.168.2.69", // meteor
+    "host": "192.168.2.69", // cluster1
     "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
       "CLUSTER_SERVICE": "web"
     }
   }, {
-    "host": "192.168.2.70", // comet
+    "host": "192.168.2.70", // cluster2
+    "username": "stephan",
+    "pem": "~/.ssh/id_rsa",
+    "env": {
+      "CLUSTER_SERVICE": "web"
+    }
+  }, {
+    "host": "192.168.2.72", // docker1
+    "username": "stephan",
+    "pem": "~/.ssh/id_rsa",
+    "env": {
+      "CLUSTER_SERVICE": "web"
+    }
+  }, {
+    "host": "192.168.2.73", // docker2
     "username": "stephan",
     "pem": "~/.ssh/id_rsa",
     "env": {
