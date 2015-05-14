@@ -7,6 +7,7 @@ if (Meteor.isClient) {
   Meteor.subscribe('config');
 
   Template.registerHelper('config', function () {
+    // optimize using http://underscorejs.org/#pairs
     return ConfigCollection.findOne();
   });
 
