@@ -1,23 +1,32 @@
 {
   // Server authentication info
   "servers": [{
-    "host": "192.168.2.82", // cluster1
+    "host": "10.0.0.82", // cluster1
     "username": "ansible",
     "pem": "/home/ansible/.ssh/id_rsa",
+    "sshOptions": {
+      "port": 2517
+    },
     "env": {
       "CLUSTER_SERVICE": "website"
     }
   }, {
-    "host": "192.168.2.83", // machine
+    "host": "10.0.0.83", // machine
     "username": "ansible",
     "pem": "/home/ansible/.ssh/id_rsa",
+    "sshOptions": {
+      "port": 2517
+    },
     "env": {
-      "CLUSTER_SERVICE": "ml"
+      "CLUSTER_SERVICE": "backend"
     }
   }, {
-    "host": "192.168.2.84", // mail
-    "username": "stephan",
+    "host": "10.0.0.84", // mail
+    "username": "ansible",
     "pem": "/home/ansible/.ssh/id_rsa",
+    "sshOptions": {
+      "port": 2517
+    },
     "env": {
       "CLUSTER_SERVICE": "mail"
     }
@@ -43,14 +52,14 @@
   "appName": "mdeptest",
 
   // Location of app (local directory)
-  "app": "/usr/local/src/meteor/app",
+  "app": "/usr/local/src/meteorclustertest/app",
 
   // Configure environment
   "env": {
     "CLUSTER_DISCOVERY_URL": "mongodb://meteor:password@10.0.0.85:27017/meteor",
     "CLUSTER_UI_SERVICE": "website", // optional
     "MONGO_URL": "mongodb://meteor:password@10.0.0.85:27017/meteor",
-    "PORT": 80,
+    "PORT": 3000,
     "ROOT_URL": "http://www.meteor.lab"
   },
 
