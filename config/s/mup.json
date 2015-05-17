@@ -2,22 +2,22 @@
   // Server authentication info
   "servers": [{
     "host": "192.168.2.82", // cluster1
-    "username": "stephan",
-    "pem": "~/.ssh/id_rsa",
+    "username": "ansible",
+    "pem": "/home/ansible/.ssh/id_rsa",
     "env": {
       "CLUSTER_SERVICE": "website"
     }
   }, {
     "host": "192.168.2.83", // machine
-    "username": "stephan",
-    "pem": "~/.ssh/id_rsa",
+    "username": "ansible",
+    "pem": "/home/ansible/.ssh/id_rsa",
     "env": {
       "CLUSTER_SERVICE": "ml"
     }
   }, {
     "host": "192.168.2.84", // mail
     "username": "stephan",
-    "pem": "~/.ssh/id_rsa",
+    "pem": "/home/ansible/.ssh/id_rsa",
     "env": {
       "CLUSTER_SERVICE": "mail"
     }
